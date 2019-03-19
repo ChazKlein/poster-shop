@@ -11,7 +11,8 @@
     <link rel="stylesheet" type="text/css" href="/public/style.css">
 </head>
 <body>
-<div id="app">
+<div id="app" v-cloak>
+	<div id="loading">Loading...</div>
     <div class="header">
         <div class="container">
             <div class="title">
@@ -31,7 +32,7 @@
 				Loading...
 			</div>
 			<div class="search-results" v-else>
-				Found {{ products.length }} results for search term <em>{{ lastSearch }}</em>.
+				Found {{ results.length }} results for search term <em>{{ lastSearch }}</em>.
 			</div>
 			<div v-for="product in products" :key="product.id" class="product">
 				<div>
@@ -46,7 +47,9 @@
 				</div>
 			</div>
 			<div id="product-list-bottom">
-
+				<div v-if="products.length === results.length && results.length > 0">
+					No more items
+				</div>
 			</div>
         </div>
         <div class="cart">

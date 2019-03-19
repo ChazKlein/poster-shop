@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
-var LOAD_NUM = 4;
-var watcher;
+let LOAD_NUM = 4;
+let watcher;
 
 new Vue({
 	el: "#app",
@@ -59,8 +59,9 @@ new Vue({
 		},
 
 		onSubmit: function() {
-			// Set empty array for products on sumbit
+			// Set empty array for products & results on sumbit
 			this.products = [];
+			this.results = [];
 			this.loading = true;
 			// Create variable of path and set it to query along with v-model of search input
 			let path = "/search?q=".concat(this.search);
@@ -78,8 +79,8 @@ new Vue({
 		},
 		appendResults: function() {
 			if(this.products.length < this.results.length) {
-				var toAppend = this.products = this.results.slice(
-					this.products.length, 
+				let toAppend = this.results.slice(
+					this.products.length,
 					LOAD_NUM + this.products.length
 				);
 				this.products = this.products.concat(toAppend);
@@ -99,7 +100,7 @@ new Vue({
 	// Updated lifecyle hook
 	updated: function() {
 		// Create variable for sensor based on bottom DIV
-		var sensor = document.querySelector("#product-list-bottom");
+		let sensor = document.querySelector("#product-list-bottom");
 		// Pass that variable into the ScrollMonitor sensor
 		watcher = scrollMonitor.create(sensor);
 		watcher.enterViewport(this.appendResults);
@@ -112,4 +113,5 @@ new Vue({
 		}
 	}
 });
+
 
