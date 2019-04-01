@@ -2,6 +2,11 @@
 let LOAD_NUM = 4;
 let watcher;
 
+var pusher = new Pusher('02b7999f276f63cfba3d', {
+	cluster: 'us2',
+	encrypted: true
+});
+
 new Vue({
 	el: "#app",
 	data: {
@@ -11,7 +16,33 @@ new Vue({
 		search: "dog",
 		lastSearch: "",
 		loading: false,
-		results: []
+		results: [],
+		pusherUpdate: false
+	},
+	mounted: function() {
+		var vue = this;
+		var channel = pusher.subscribe('cart');
+		channel.bind('update', function(data) {
+			vue.pusherUpdate = true;
+			vue.cart = data;
+			vue.total = 0;
+			for (var i = 0; i < vue.cart.length; i++) {
+				vue.total += vue.cart[i].price * vue.cart[i].qty;
+			}
+		})
+	},
+	watch: {
+		cart: {
+			handler: function(val) {
+				if (!this.pusherUpdate) {
+					this.$http.post('/cart_update', val);
+				} else {
+					this.pusherUpdate = false;
+				}
+				
+			},
+			deep: true
+		}
 	},
 	methods: {
 		addToCart: function(product) {

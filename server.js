@@ -3,6 +3,19 @@ var app = express();
 var path = require("path");
 var server = require("http").createServer(app);
 var fs = require("fs");
+// Define Pusher
+var Pusher = require('pusher');
+
+require('dotenv').config();
+
+// Create pusher instance
+var pusher = new Pusher({
+	appId: process.env.PUSHER_APP_ID,
+	key: process.env.PUSHER_APP_KEY,
+	secret: process.env.PUSHER_APP_SECRET,
+	cluster: process.env.PUSHER_CLUSTER
+});
+
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -32,6 +45,11 @@ app.get("/search", function(req, res) {
 		return acc;
 	}, []);
 	res.send(results);
+});
+
+// Push cart update post in server
+app.post('/cart_update', function(req, res) {
+	pusher.trigger('cart', 'update', req.body);
 });
 
 app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));

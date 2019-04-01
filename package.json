@@ -21,6 +21,8 @@
     "body-parser": "^1.15.2",
     "dotenv": "^6.0.0",
     "express": "^4.14.0",
+    "pusher": "^2.2.0",
+    "pusher-js": "^4.4.0",
     "scrollmonitor": "^1.2.4",
     "vue": "^2.6.9",
     "vue-resource": "^1.5.1"
