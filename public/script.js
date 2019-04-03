@@ -95,7 +95,7 @@ new Vue({
 			this.results = [];
 			this.loading = true;
 			// Create variable of path and set it to query along with v-model of search input
-			let path = "/search?q=".concat(this.search);
+			let path = "http://poster-shop.vuejsdevelopers.com/search?q=".concat(this.search);
 			// Utilize Vue Response for http call and pass in query and log response
 			this.$http.get(path)
 				.then(function(response) {
