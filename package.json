@@ -28,6 +28,7 @@
     "vue-resource": "^1.5.1"
   },
   "devDependencies": {
+    "easywebpack-vue": "^4.5.0",
     "eslint": "^5.5.0",
     "nodemon": "^1.11.0",
     "reload": "^2.3.1"
